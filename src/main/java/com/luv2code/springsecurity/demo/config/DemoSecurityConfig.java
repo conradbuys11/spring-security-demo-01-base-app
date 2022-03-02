@@ -1,5 +1,8 @@
 package com.luv2code.springsecurity.demo.config;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,14 +15,21 @@ import org.springframework.security.core.userdetails.User.UserBuilder;
 @EnableWebSecurity
 public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
 
+	//add reference to our security data source
+	@Autowired
+	private DataSource securityDataSource;
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		
-		//making some demo users
-		UserBuilder users = User.withDefaultPasswordEncoder();
-		auth.inMemoryAuthentication().withUser(users.username("john").password("test123").roles("EMPLOYEE"));
-		auth.inMemoryAuthentication().withUser(users.username("mary").password("test123").roles("MANAGER"));
-		auth.inMemoryAuthentication().withUser(users.username("susan").password("test123").roles("ADMIN"));
+//		//making some demo users
+//		UserBuilder users = User.withDefaultPasswordEncoder();
+//		auth.inMemoryAuthentication().withUser(users.username("john").password("test123").roles("EMPLOYEE"));
+//		auth.inMemoryAuthentication().withUser(users.username("mary").password("test123").roles("MANAGER"));
+//		auth.inMemoryAuthentication().withUser(users.username("susan").password("test123").roles("ADMIN"));
+		
+		//time to use jdbc instead of hard coding users
+		auth.jdbcAuthentication().dataSource(securityDataSource);
 	}
 
 	@Override
