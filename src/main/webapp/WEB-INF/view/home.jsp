@@ -13,11 +13,19 @@
 	
 	<p>Welcome to the luv2code company home page!</p>
 	
+	<security:authorize access="hasRole('MANAGER')">
 	<p>
 		<a href="${pageContext.request.contextPath}/leaders">Leadership Meeting</a> (Only for managers)
-		<br>
-		<a href="${pageContext.request.contextPath}/systems">IT Systems Meeting</a> (Only for admins)
 	</p>
+	<br>
+	</security:authorize>
+	
+	<security:authorize access="hasRole('ADMIN')">
+	<p>
+		<a href="${pageContext.request.contextPath}/systems">IT Systems Meeting</a> (Only for admins)
+		<br>
+	</p>
+	</security:authorize>
 	
 	<form:form action="${pageContext.request.contextPath }/logout" method="POST">
 		<input type="submit" value="logout" />
