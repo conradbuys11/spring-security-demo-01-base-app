@@ -1,9 +1,10 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 <html>
 
 <head>
-	<title>luv2code Compoany Home Page</title>
+	<title>luv2code Company Home Page</title>
 </head>
 
 <body>
@@ -11,6 +12,12 @@
 	<hr>
 	
 	<p>Welcome to the luv2code company home page!</p>
+	
+	<p>
+		<a href="${pageContext.request.contextPath}/leaders">Leadership Meeting</a> (Only for managers)
+		<br>
+		<a href="${pageContext.request.contextPath}/systems">IT Systems Meeting</a> (Only for admins)
+	</p>
 	
 	<form:form action="${pageContext.request.contextPath }/logout" method="POST">
 		<input type="submit" value="logout" />
