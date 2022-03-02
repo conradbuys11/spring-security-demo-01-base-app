@@ -11,6 +11,9 @@
 	.failed{
 		color:red;
 	}
+	.logout{
+		color:green;
+	}
 </style>
 </head>
 
@@ -19,6 +22,10 @@
 	<form:form action="${pageContext.request.contextPath }/authenticateTheUser" method="POST">
 		<c:if test="${param.error != null}">
 			<i class="failed">Sorry, you entered an invalid user/pass</i>
+		</c:if>
+		
+		<c:if test="${param.logout != null }">
+			<i class="logout">You have been logged out.</i>
 		</c:if>
 	
 		<p>
